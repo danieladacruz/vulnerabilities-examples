@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>XSS Example</title>
+</head>
+<body>
+  <h1>Search</h1>
+  <form method="GET">
+    <input type="text" name="query">
+    <input type="submit" value="Search">
+  </form>
+
+  <p>You searched for: <span id="output"></span></p>
+
+  <script>
+    // Get query string parameter 'query'
+    const params = new URLSearchParams(window.location.search);
+    const query = params.get("query");
+
+    // ⚠️ VULNERABLE: directly inserting user input into the DOM without sanitization
+    document.getElementById("output").innerHTML = query;
+  </script>
+</body>
+</html>
